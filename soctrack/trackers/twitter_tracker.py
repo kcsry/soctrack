@@ -31,9 +31,8 @@ class TwitterTracker(BaseTracker):
         )
 
     def track_search(self, search):
-        for post in self.client.search.tweets(
-            q=search, count=100, include_entities=True, result_type='recent'
-        ).get('statuses', []):
+        result = self.client.search.tweets(q=search, count=100, include_entities=True, result_type='recent')
+        for post in result.get('statuses', []):
             self._process_post(post)
 
     def ingest(self, datum):
@@ -77,7 +76,7 @@ class TwitterTracker(BaseTracker):
             author_name='@%s' % user_name,
             avatar_url=avatar_url,
             message=sanitize_unicode(status['text'][:140]),
-            blob=status
+            blob=status,
         )
         post.save()
         hashtags = entities.get('hashtags', ())

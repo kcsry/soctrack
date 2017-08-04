@@ -12,15 +12,13 @@ from soctrack.utils import could_be_utc, sanitize_unicode
 
 class InstagramTracker(BaseTracker):
     medium = 'ig'
-    CLIENT_ID = getattr(settings, 'SOCTRACK_INSTAGRAM_CLIENT_ID', '')
-    ACCESS_TOKEN = getattr(settings, 'SOCTRACK_INSTAGRAM_ACCESS_TOKEN', '')
 
     def track_search(self, search):
         url = 'https://api.instagram.com/v1/tags/%s/media/recent' % search.strip('#')
         resp = requests.get(
             url, params={
-                'client_id': self.CLIENT_ID,
-                'access_token': self.ACCESS_TOKEN,
+                'client_id': getattr(settings, 'SOCTRACK_INSTAGRAM_CLIENT_ID', ''),
+                'access_token': getattr(settings, 'SOCTRACK_INSTAGRAM_ACCESS_TOKEN', ''),
                 'count': 100,
             }
         )

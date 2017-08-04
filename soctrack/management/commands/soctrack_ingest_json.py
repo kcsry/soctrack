@@ -11,6 +11,10 @@ from soctrack.trackers import tracker_classes
 
 
 class Command(BaseCommand):
+    def add_arguments(self, parser):
+        parser.add_argument('medium')
+        parser.add_argument('filename')
+
     def handle(self, medium, filename, **options):
         tracker = None
         for klass in tracker_classes:
