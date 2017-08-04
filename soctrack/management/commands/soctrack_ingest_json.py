@@ -18,10 +18,10 @@ class Command(BaseCommand):
                 tracker = klass()
 
         if not tracker:
-            print("Could not find tracker for medium %r." % medium)
+            print('Could not find tracker for medium %r.' % medium)
             return
 
-        with open(filename, "rb") as in_f:
+        with open(filename, 'rb') as in_f:
             data = json.load(in_f)
 
         results = Counter()
@@ -29,4 +29,4 @@ class Command(BaseCommand):
         for datum in data:
             results[bool(tracker.ingest(datum))] += 1
 
-        print("Results:", results)
+        print('Results:', results)

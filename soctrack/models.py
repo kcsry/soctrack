@@ -1,11 +1,10 @@
-
 from django.db import models
 from django.utils.timezone import make_aware, utc
 from jsonfield.fields import JSONField
 
 MEDIUM_CHOICES = [
-    ("ig", "Instagram"),
-    ("tw", "Twitter"),
+    ('ig', 'Instagram'),
+    ('tw', 'Twitter'),
 ]
 
 
@@ -29,7 +28,7 @@ class Post(models.Model):
     blob = JSONField()
 
     class Meta:
-        unique_together = (("medium", "identifier", ))
+        unique_together = (('medium', 'identifier',),)
 
     def add_text_tags(self, tags):
         for tag in set(tags):
@@ -38,12 +37,12 @@ class Post(models.Model):
     def to_json(self):
         time = make_aware(self.posted_on, utc)
         return {
-            "medium": self.medium,
-            "id": self.identifier,
-            "posted_on": time.isoformat(),
-            "post_url": self.post_url,
-            "avatar_url": self.avatar_url,
-            "primary_image_url": self.primary_image_url,
-            "author_name": self.author_name,
-            "message": self.message,
+            'medium': self.medium,
+            'id': self.identifier,
+            'posted_on': time.isoformat(),
+            'post_url': self.post_url,
+            'avatar_url': self.avatar_url,
+            'primary_image_url': self.primary_image_url,
+            'author_name': self.author_name,
+            'message': self.message,
         }
