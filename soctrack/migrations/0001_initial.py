@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
             name='Post',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('medium', models.CharField(max_length=4, choices=[(b'ig', b'Instagram'), (b'tw', b'Twitter')])),
+                ('medium', models.CharField(max_length=4, choices=[('ig', 'Instagram'), ('tw', 'Twitter')])),
                 ('identifier', models.CharField(max_length=64)),
                 ('downloaded_on', models.DateTimeField(auto_now_add=True)),
                 ('posted_on', models.DateTimeField(db_index=True, null=True, blank=True)),
