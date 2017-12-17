@@ -8,7 +8,7 @@ from django.conf import settings
 
 from soctrack.models import Post
 from soctrack.trackers.base import BaseTracker
-from soctrack.utils import could_be_utc, sanitize_unicode
+from soctrack.utils import could_be_utc, retry_with_backoff, sanitize_unicode
 
 
 def to_datetime(datestring):
@@ -31,7 +31,10 @@ class TwitterTracker(BaseTracker):
         )
 
     def track_search(self, search):
-        result = self.client.search.tweets(q=search, count=100, include_entities=True, result_type='recent')
+        def get_result():
+            return self.client.search.tweets(q=search, count=100, include_entities=True, result_type='recent')
+
+        result = retry_with_backoff(get_result)
         for post in result.get('statuses', []):
             self._process_post(post)
 
