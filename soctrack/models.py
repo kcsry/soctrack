@@ -32,7 +32,10 @@ class Post(models.Model):
 
     def add_text_tags(self, tags):
         for tag in set(tags):
-            self.tags.add(Tag.objects.get_or_create(tag=tag)[0])
+            try:
+                self.tags.add(Tag.objects.get_or_create(tag=tag)[0])
+            except:
+                pass
 
     def to_json(self):
         time = make_aware(self.posted_on, utc)
