@@ -38,7 +38,7 @@ class InstagramTracker(BaseTracker):
         if post_data.get('caption'):
             caption_text = post_data['caption']['text'][:140]
         else:
-            caption_text = u""
+            caption_text = ""
         posted_on = could_be_utc(datetime.datetime.utcfromtimestamp(int(post_data['created_time'])))
         post = Post(
             medium=self.medium,
