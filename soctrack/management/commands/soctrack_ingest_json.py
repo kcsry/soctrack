@@ -1,7 +1,3 @@
-# -- encoding: UTF-8 --
-
-
-
 import json
 from collections import Counter
 

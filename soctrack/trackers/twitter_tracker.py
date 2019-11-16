@@ -1,5 +1,3 @@
-# -- encoding: UTF-8 --
-
 import datetime
 from email.utils import parsedate_tz
 

@@ -1,5 +1,3 @@
-# -- encoding: UTF-8 --
-
 from django.core.management.base import BaseCommand
 
 from soctrack.trackers import tracker_classes
