@@ -1,4 +1,4 @@
-class BaseTracker(object):
+class BaseTracker:
     def track_search(self, search):
         raise NotImplementedError('Ni!')
 
