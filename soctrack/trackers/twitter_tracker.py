@@ -30,7 +30,12 @@ class TwitterTracker(BaseTracker):
 
     def track_search(self, search):
         def get_result():
-            return self.client.search.tweets(q=search, count=100, include_entities=True, result_type='recent')
+            return self.client.search.tweets(
+                q=search,
+                count=100,
+                include_entities=True,
+                result_type='recent',
+            )
 
         result = retry_with_backoff(get_result)
         for post in result.get('statuses', []):

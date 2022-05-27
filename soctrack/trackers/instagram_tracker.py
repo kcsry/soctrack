@@ -13,13 +13,15 @@ class InstagramTracker(BaseTracker):
 
     def track_search(self, search):
         url = f"https://api.instagram.com/v1/tags/{search.strip('#')}/media/recent"
+        client_id = getattr(settings, 'SOCTRACK_INSTAGRAM_CLIENT_ID', '')
+        access_token = getattr(settings, 'SOCTRACK_INSTAGRAM_ACCESS_TOKEN', '')
         resp = requests.get(
             url,
             params={
-                'client_id': getattr(settings, 'SOCTRACK_INSTAGRAM_CLIENT_ID', ''),
-                'access_token': getattr(settings, 'SOCTRACK_INSTAGRAM_ACCESS_TOKEN', ''),
+                'client_id': client_id,
+                'access_token': access_token,
                 'count': 100,
-            }
+            },
         )
         resp.raise_for_status()
         data = resp.json()
@@ -37,7 +39,9 @@ class InstagramTracker(BaseTracker):
             caption_text = post_data['caption']['text'][:140]
         else:
             caption_text = ""
-        posted_on = could_be_utc(datetime.datetime.utcfromtimestamp(int(post_data['created_time'])))
+        posted_on = could_be_utc(
+            datetime.datetime.utcfromtimestamp(int(post_data['created_time']))
+        )
         post = Post(
             medium=self.medium,
             identifier=post_id,
@@ -47,7 +51,7 @@ class InstagramTracker(BaseTracker):
             avatar_url=post_data['user']['profile_picture'],
             author_name=sanitize_unicode(post_data['user']['username']),
             message=sanitize_unicode(caption_text),
-            blob=post_data
+            blob=post_data,
         )
         post.save()
         post.add_text_tags(post_data['tags'])

@@ -28,7 +28,12 @@ class Post(models.Model):
     blob = JSONField()
 
     class Meta:
-        unique_together = (('medium', 'identifier',),)
+        unique_together = (
+            (
+                'medium',
+                'identifier',
+            ),
+        )
 
     def add_text_tags(self, tags):
         for tag in set(tags):
