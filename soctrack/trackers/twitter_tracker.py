@@ -52,7 +52,7 @@ class TwitterTracker(BaseTracker):
         except KeyError:
             user_name = status['from_user']  # Old-school format
 
-        url = 'https://twitter.com/%s/status/%s' % (user_name, post_id)
+        url = f'https://twitter.com/{user_name}/status/{post_id}'
         entities = status.get('entities', {})
 
         primary_image_url = ''
@@ -74,7 +74,7 @@ class TwitterTracker(BaseTracker):
             post_url=url,
             posted_on=to_datetime(status['created_at']),
             primary_image_url=primary_image_url,
-            author_name='@%s' % user_name,
+            author_name=f'@{user_name}',
             avatar_url=avatar_url,
             message=sanitize_unicode(status['text'][:140]),
             blob=status,

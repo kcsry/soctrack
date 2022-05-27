@@ -18,7 +18,7 @@ class Command(BaseCommand):
                 tracker = klass()
 
         if not tracker:
-            print('Could not find tracker for medium %r.' % medium)
+            print(f'Could not find tracker for medium {medium!r}.')
             return
 
         with open(filename, 'rb') as in_f:

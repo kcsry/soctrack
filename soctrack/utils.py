@@ -27,7 +27,7 @@ def could_be_utc(dt):
 class RetryError(Exception):
     def __init__(self, fn, tries, exceptions):
         name = getattr(fn, '__name__', None) or str(fn)
-        super(RetryError, self).__init__('%s failed after %d tries' % (name, tries))
+        super().__init__('%s failed after %d tries' % (name, tries))
         self.exceptions = exceptions
 
 

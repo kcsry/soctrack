@@ -12,7 +12,7 @@ class InstagramTracker(BaseTracker):
     medium = 'ig'
 
     def track_search(self, search):
-        url = 'https://api.instagram.com/v1/tags/%s/media/recent' % search.strip('#')
+        url = f"https://api.instagram.com/v1/tags/{search.strip('#')}/media/recent"
         resp = requests.get(
             url,
             params={
